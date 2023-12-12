@@ -1,8 +1,5 @@
-res://main.tscn
-res://main.gd
 res://world.tscn
-res://Player/character_body_2d.tscn
-res://Player/Player.gd
-res://Player/bg.tscn
-res://bg.tscn
-res://bg.gd
+res://main.tscn
+res://rat.tscn
+res://PlayerDetection.gd
+res://rat.gd

@@ -1,0 +1,93 @@
+[gd_scene load_steps=18 format=3 uid="uid://bwpsat3wvwcdc"]
+
+[ext_resource type="Script" path="res://rat.gd" id="1_61uec"]
+[ext_resource type="Texture2D" uid="uid://duw5553aeb1x8" path="res://Sunny-land-files/Sunny-land-files/Graphical Assets/sprites/enemy-death/enemy-death-1.png" id="2_3u75w"]
+[ext_resource type="Texture2D" uid="uid://2jydaws76k2s" path="res://Sunny-land-files/Sunny-land-files/Graphical Assets/sprites/enemy-death/enemy-death-2.png" id="3_kd6yt"]
+[ext_resource type="Texture2D" uid="uid://cn0xme5a7cjxg" path="res://Sunny-land-files/Sunny-land-files/Graphical Assets/sprites/enemy-death/enemy-death-3.png" id="4_vislu"]
+[ext_resource type="Texture2D" uid="uid://ckuu2ilxl5aw3" path="res://Sunny-land-files/Sunny-land-files/Graphical Assets/sprites/enemy-death/enemy-death-4.png" id="5_g142u"]
+[ext_resource type="Texture2D" uid="uid://bqr6vg1tqyvub" path="res://Sunny-land-files/Sunny-land-files/Graphical Assets/sprites/enemy-death/enemy-death-5.png" id="6_vkd1a"]
+[ext_resource type="Texture2D" uid="uid://ctq36m3ujbfm1" path="res://Sunny-land-files/Sunny-land-files/Graphical Assets/sprites/enemy-death/enemy-death-6.png" id="7_wd0nx"]
+[ext_resource type="Texture2D" uid="uid://3hyi1nfqnke3" path="res://Sunny-land-files/Sunny-land-files/Graphical Assets/sprites/opossum/opossum-1.png" id="8_s8cas"]
+[ext_resource type="Texture2D" uid="uid://06aad7enfccu" path="res://Sunny-land-files/Sunny-land-files/Graphical Assets/sprites/opossum/opossum-2.png" id="9_t4chg"]
+[ext_resource type="Texture2D" uid="uid://bbk1mw5v386ma" path="res://Sunny-land-files/Sunny-land-files/Graphical Assets/sprites/opossum/opossum-3.png" id="10_0ig1t"]
+[ext_resource type="Texture2D" uid="uid://dcdwg35h7xpo2" path="res://Sunny-land-files/Sunny-land-files/Graphical Assets/sprites/opossum/opossum-4.png" id="11_7mxys"]
+[ext_resource type="Texture2D" uid="uid://bmvolb5hr8gut" path="res://Sunny-land-files/Sunny-land-files/Graphical Assets/sprites/opossum/opossum-5.png" id="12_k5jiq"]
+[ext_resource type="Texture2D" uid="uid://1e5v4xuskmeg" path="res://Sunny-land-files/Sunny-land-files/Graphical Assets/sprites/opossum/opossum-6.png" id="13_pignu"]
+[ext_resource type="Script" path="res://PlayerDetection.gd" id="14_ywhpn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0g1wd"]
+size = Vector2(20, 11)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_clpuv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_3u75w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_kd6yt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_vislu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_g142u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_vkd1a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_wd0nx")
+}],
+"loop": true,
+"name": &"death",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_s8cas")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_t4chg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_0ig1t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_7mxys")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_k5jiq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_pignu")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_346ua"]
+radius = 70.0
+
+[node name="rat" type="CharacterBody2D"]
+script = ExtResource("1_61uec")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_0g1wd")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(3, -3)
+sprite_frames = SubResource("SpriteFrames_clpuv")
+animation = &"run"
+autoplay = "run"
+
+[node name="PlayerDetection" type="Area2D" parent="."]
+script = ExtResource("14_ywhpn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
+shape = SubResource("CircleShape2D_346ua")
+
+[connection signal="body_shape_entered" from="PlayerDetection" to="PlayerDetection" method="_on_body_shape_entered"]
+[connection signal="body_shape_exited" from="PlayerDetection" to="PlayerDetection" method="_on_body_shape_exited"]
